@@ -10,5 +10,6 @@
     <string name="target_hard">Hard mode: the clock is hidden!</string>
     <string name="easy">EASY</string>
     <string name="hard">HARD</string>
+    <string name="toggle_theme">Switch light or dark mode</string>
     <string name="reset_all">Reset all achievements</string>
 </resources>

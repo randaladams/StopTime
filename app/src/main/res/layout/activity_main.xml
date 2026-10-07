@@ -23,6 +23,15 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
+        <TextView
+            android:id="@+id/themeButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginEnd="8dp"
+            android:contentDescription="@string/toggle_theme"
+            android:gravity="center"
+            android:textSize="22sp" />
+
         <Button
             android:id="@+id/achievementsButton"
             android:layout_width="wrap_content"
@@ -110,23 +119,35 @@
         android:layout_height="96dp"
         android:layout_gravity="center_horizontal"
         android:text="@string/start"
-        android:textColor="@color/text_primary"
+        android:textColor="@color/on_accent"
         android:textSize="32sp"
         android:textStyle="bold" />
 
-    <!-- "Achievement unlocked" pop-up -->
-    <TextView
-        android:id="@+id/achievementBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="24dp"
-        android:background="@color/surface"
-        android:gravity="center"
-        android:padding="12dp"
-        android:textColor="@color/gold"
-        android:textSize="16sp"
-        android:visibility="invisible" />
+    <!-- "Achievement unlocked" pop-up. Fixed height so it never pushes the screen around. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
+
+        <TextView
+            android:id="@+id/achievementBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/surface"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/gold"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"

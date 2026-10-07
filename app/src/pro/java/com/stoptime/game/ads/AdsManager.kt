@@ -8,8 +8,7 @@ import android.widget.FrameLayout
 @Suppress("UNUSED_PARAMETER")
 class AdsManager(activity: Activity) {
     fun setup(bannerContainer: FrameLayout) { bannerContainer.visibility = View.GONE }
-    fun shouldShowFullScreenAd(totalTries: Int) = false
-    fun showFullScreenAd(onFinished: () -> Unit) = onFinished()
+    fun onReturnFromAchievements(onFinished: () -> Unit) = onFinished()
     fun resume() {}
     fun pause() {}
     fun destroy() {}

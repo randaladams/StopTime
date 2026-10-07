@@ -30,6 +30,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var targetText: TextView
     private lateinit var easyButton: TextView
     private lateinit var hardButton: TextView
+    private lateinit var themeButton: TextView
 
     private lateinit var achievements: AchievementManager
     private lateinit var ads: AdsManager
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private var running = false
     private var locked = false      // briefly blocks taps while an ad is about to show
     private var startTimeMs = 0L    // uses SystemClock.uptimeMillis() time base
+    private var returningFromAchievements = false
 
     /** Redraws the clock on every screen refresh while running. */
     private val ticker = object : Choreographer.FrameCallback {
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         targetText = findViewById(R.id.targetText)
         easyButton = findViewById(R.id.easyButton)
         hardButton = findViewById(R.id.hardButton)
+        themeButton = findViewById(R.id.themeButton)
 
         achievements = AchievementManager(this)
         ads = AdsManager(this)
@@ -78,11 +81,20 @@ class MainActivity : AppCompatActivity() {
         startStopButton.setOnClickListener { toggle(SystemClock.uptimeMillis()) }
 
         findViewById<Button>(R.id.achievementsButton).setOnClickListener {
-            if (!running) startActivity(Intent(this, AchievementsActivity::class.java))
+            if (!running && !locked) {
+                returningFromAchievements = true
+                startActivity(Intent(this, AchievementsActivity::class.java))
+            }
         }
 
         easyButton.setOnClickListener { setMode(hard = false) }
         hardButton.setOnClickListener { setMode(hard = true) }
+
+        // Light / Dark toggle. Shows the mode you'd switch TO.
+        themeButton.text = if (AppTheme.isDark(this)) "☀️" else "🌙"
+        themeButton.setOnClickListener {
+            if (!running && !locked) AppTheme.setDark(this, !AppTheme.isDark(this))
+        }
 
         setButtonStyle(isRunning = false)
         showModeStyle()
@@ -115,7 +127,7 @@ class MainActivity : AppCompatActivity() {
             if (selected) setColor(c) else setColor(0)
             setStroke((2 * density).toInt(), c)
         }
-        view.setTextColor(ContextCompat.getColor(this, if (selected) R.color.text_primary else R.color.text_secondary))
+        view.setTextColor(ContextCompat.getColor(this, if (selected) R.color.on_accent else R.color.text_secondary))
     }
 
     private fun toggle(timeMs: Long) {
@@ -170,7 +182,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun showUnlocked(list: List<Achievement>) {
         if (list.isEmpty()) return
-        banner.text = list.joinToString("\n") { "🏆 Achievement unlocked: ${it.title}" }
+        banner.text = if (list.size == 1) "🏆 Achievement unlocked: ${list[0].title}"
+                      else "🏆 ${list.size} achievements unlocked: " + list.joinToString(" • ") { it.title }
         banner.alpha = 0f
         banner.visibility = android.view.View.VISIBLE
         banner.animate().alpha(1f).setDuration(250).start()
@@ -178,7 +191,7 @@ class MainActivity : AppCompatActivity() {
         handler.postAtTime({
             banner.animate().alpha(0f).setDuration(400)
                 .withEndAction { banner.visibility = android.view.View.INVISIBLE }.start()
-        }, BANNER_TOKEN, SystemClock.uptimeMillis() + 3000)
+        }, BANNER_TOKEN, SystemClock.uptimeMillis() + BANNER_SHOW_MS)
     }
 
     /** Shows the stats for the mode currently selected. */
@@ -205,6 +218,17 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         updateStats()   // in case achievements were reset on the other screen
         ads.resume()
+
+        // Free version: maybe show a full-screen ad when coming back from Achievements.
+        if (returningFromAchievements) {
+            returningFromAchievements = false
+            handler.postDelayed({
+                if (!isFinishing && !running) {
+                    locked = true
+                    ads.onReturnFromAchievements { locked = false }
+                }
+            }, 300)
+        }
     }
 
     override fun onPause() {
@@ -228,5 +252,6 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private val BANNER_TOKEN = Any()
+        private const val BANNER_SHOW_MS = 5000L   // how long "Achievement unlocked" stays up
     }
 }

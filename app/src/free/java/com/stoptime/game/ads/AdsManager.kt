@@ -2,6 +2,7 @@ package com.stoptime.game.ads
 
 import android.app.Activity
 import android.graphics.Color
+import android.os.SystemClock
 import android.util.Log
 import android.view.Gravity
 import android.widget.FrameLayout
@@ -19,8 +20,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.stoptime.game.BuildConfig
 
 /**
- * FREE VERSION ads: banner at the bottom. A full-screen ad is loaded and ready,
- * but the game doesn't show it anywhere yet (placement still to be decided).
+ * FREE VERSION ads:
+ *  - banner at the bottom of the game screen
+ *  - full-screen ad when the player comes BACK from the Achievements screen,
+ *    but never more than once every [MIN_MINUTES_BETWEEN_FULLSCREEN] minutes
+ *    (and not in the first few minutes after opening the app).
  * The IDs below are Google's official TEST ids - safe to use while developing.
  * Replace them with your real AdMob ids before publishing.
  */
@@ -33,6 +37,7 @@ class AdsManager(private val activity: Activity) {
 
     fun setup(bannerContainer: FrameLayout) {
         container = bannerContainer
+        if (lastFullScreenMs < 0) lastFullScreenMs = SystemClock.elapsedRealtime() // grace period at app start
         MobileAds.initialize(activity) { status ->
             Log.i(TAG, "MobileAds initialized: ${status.adapterStatusMap}")
         }
@@ -57,13 +62,15 @@ class AdsManager(private val activity: Activity) {
         loadInterstitial()
     }
 
-    fun shouldShowFullScreenAd(totalTries: Int) = totalTries > 0 && totalTries % EVERY_N_TRIES == 0
-
-    fun showFullScreenAd(onFinished: () -> Unit) {
+    /** Called when the player returns to the game from the Achievements screen. */
+    fun onReturnFromAchievements(onFinished: () -> Unit) {
+        val waitedMs = SystemClock.elapsedRealtime() - lastFullScreenMs
         val ad = interstitial
-        if (ad == null) {           // not loaded yet (no internet etc.) - just skip it
-            onFinished(); loadInterstitial(); return
+        if (waitedMs < MIN_MINUTES_BETWEEN_FULLSCREEN * 60_000L || ad == null) {
+            if (ad == null) loadInterstitial()   // not loaded (no internet etc.) - just skip it
+            onFinished(); return
         }
+        lastFullScreenMs = SystemClock.elapsedRealtime()
         ad.fullScreenContentCallback = object : FullScreenContentCallback() {
             override fun onAdDismissedFullScreenContent() {
                 interstitial = null; loadInterstitial(); onFinished()
@@ -116,7 +123,9 @@ class AdsManager(private val activity: Activity) {
     fun destroy() { bannerView?.destroy() }
 
     companion object {
-        const val EVERY_N_TRIES = 4
+        /** Minimum minutes between full-screen ads. Change this number to adjust. */
+        const val MIN_MINUTES_BETWEEN_FULLSCREEN = 3
+        private var lastFullScreenMs = -1L   // shared across screen redraws (e.g. theme change)
         private const val TAG = "StopTimeAds"
         private const val BANNER_ID = "ca-app-pub-3940256099942544/9214589741"       // TEST
         private const val INTERSTITIAL_ID = "ca-app-pub-3940256099942544/1033173712" // TEST
