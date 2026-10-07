@@ -12,8 +12,8 @@ android {
         applicationId = "com.stoptime.game"
         minSdk = 26
         targetSdk = 35
-        versionCode = 4
-        versionName = "1.3"
+        versionCode = 5
+        versionName = "1.4"
     }
 
     // Two versions of the app are built from the same code:

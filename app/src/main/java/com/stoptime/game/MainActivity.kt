@@ -24,7 +24,9 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var timerText: TextView
     private lateinit var resultText: TextView
-    private lateinit var statsText: TextView
+    private lateinit var statTries: TextView
+    private lateinit var statPerfects: TextView
+    private lateinit var statStreak: TextView
     private lateinit var banner: TextView
     private lateinit var startStopButton: Button
     private lateinit var targetText: TextView
@@ -59,7 +61,9 @@ class MainActivity : AppCompatActivity() {
 
         timerText = findViewById(R.id.timerText)
         resultText = findViewById(R.id.resultText)
-        statsText = findViewById(R.id.statsText)
+        statTries = findViewById(R.id.statTries)
+        statPerfects = findViewById(R.id.statPerfects)
+        statStreak = findViewById(R.id.statStreak)
         banner = findViewById(R.id.achievementBanner)
         startStopButton = findViewById(R.id.startStopButton)
         targetText = findViewById(R.id.targetText)
@@ -80,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         // Accessibility (TalkBack etc.) still works through a normal click.
         startStopButton.setOnClickListener { toggle(SystemClock.uptimeMillis()) }
 
-        findViewById<Button>(R.id.achievementsButton).setOnClickListener {
+        findViewById<android.view.View>(R.id.achievementsButton).setOnClickListener {
             if (!running && !locked) {
                 returningFromAchievements = true
                 startActivity(Intent(this, AchievementsActivity::class.java))
@@ -197,11 +201,9 @@ class MainActivity : AppCompatActivity() {
     /** Shows the stats for the mode currently selected. */
     private fun updateStats() {
         val hard = achievements.hardMode
-        statsText.text = String.format(
-            Locale.US, "%s   Tries: %d   •   Perfect: %d   •   Best streak: %d",
-            if (hard) "HARD" else "EASY",
-            achievements.tries(hard), achievements.perfects(hard), achievements.bestStreak(hard)
-        )
+        statTries.text = String.format(Locale.US, "%,d", achievements.tries(hard))
+        statPerfects.text = String.format(Locale.US, "%,d", achievements.perfects(hard))
+        statStreak.text = String.format(Locale.US, "%,d", achievements.bestStreak(hard))
     }
 
     private fun setButtonStyle(isRunning: Boolean) {

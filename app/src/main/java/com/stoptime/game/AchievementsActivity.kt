@@ -22,7 +22,7 @@ class AchievementsActivity : AppCompatActivity() {
         fitToSystemBars(findViewById(R.id.root))
 
         manager = AchievementManager(this)
-        findViewById<Button>(R.id.backButton).setOnClickListener { finish() }
+        findViewById<android.view.View>(R.id.backButton).setOnClickListener { finish() }
         findViewById<Button>(R.id.resetButton).setOnClickListener { confirmReset() }
 
         buildList()
