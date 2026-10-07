@@ -144,14 +144,6 @@ class MainActivity : AppCompatActivity() {
         val unlocked = achievements.recordAttempt(hundredths, achievements.hardMode)
         showUnlocked(unlocked)
         updateStats()
-
-        // Free version: full-screen ad every 4th try (pro version does nothing here).
-        if (ads.shouldShowFullScreenAd(achievements.totalTries)) {
-            locked = true
-            handler.postDelayed({
-                ads.showFullScreenAd { locked = false }
-            }, if (unlocked.isEmpty()) 1200L else 2500L)
-        }
     }
 
     /** Whole hundredths of a second (truncated, so 0.999 shows as 0.99). */
