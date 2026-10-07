@@ -27,6 +27,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var statsText: TextView
     private lateinit var banner: TextView
     private lateinit var startStopButton: Button
+    private lateinit var targetText: TextView
+    private lateinit var easyButton: TextView
+    private lateinit var hardButton: TextView
 
     private lateinit var achievements: AchievementManager
     private lateinit var ads: AdsManager
@@ -40,7 +43,8 @@ class MainActivity : AppCompatActivity() {
     private val ticker = object : Choreographer.FrameCallback {
         override fun doFrame(frameTimeNanos: Long) {
             if (!running) return
-            showTime(hundredthsBetween(startTimeMs, SystemClock.uptimeMillis()))
+            // Hard mode: keep the clock hidden while it runs.
+            if (!achievements.hardMode) showTime(hundredthsBetween(startTimeMs, SystemClock.uptimeMillis()))
             Choreographer.getInstance().postFrameCallback(this)
         }
     }
@@ -56,6 +60,9 @@ class MainActivity : AppCompatActivity() {
         statsText = findViewById(R.id.statsText)
         banner = findViewById(R.id.achievementBanner)
         startStopButton = findViewById(R.id.startStopButton)
+        targetText = findViewById(R.id.targetText)
+        easyButton = findViewById(R.id.easyButton)
+        hardButton = findViewById(R.id.hardButton)
 
         achievements = AchievementManager(this)
         ads = AdsManager(this)
@@ -74,8 +81,41 @@ class MainActivity : AppCompatActivity() {
             if (!running) startActivity(Intent(this, AchievementsActivity::class.java))
         }
 
+        easyButton.setOnClickListener { setMode(hard = false) }
+        hardButton.setOnClickListener { setMode(hard = true) }
+
         setButtonStyle(isRunning = false)
+        showModeStyle()
         updateStats()
+    }
+
+    /** Switch between Easy and Hard (not allowed while the clock is running). */
+    private fun setMode(hard: Boolean) {
+        if (running || locked || achievements.hardMode == hard) return
+        achievements.hardMode = hard
+        showModeStyle()
+        resultText.text = ""
+        showTime(0)
+        timerText.setTextColor(ContextCompat.getColor(this, R.color.text_primary))
+        updateStats()
+    }
+
+    private fun showModeStyle() {
+        val hard = achievements.hardMode
+        styleModeButton(easyButton, selected = !hard, color = R.color.start_green)
+        styleModeButton(hardButton, selected = hard, color = R.color.stop_red)
+        targetText.text = getString(if (hard) R.string.target_hard else R.string.target)
+    }
+
+    private fun styleModeButton(view: TextView, selected: Boolean, color: Int) {
+        val c = ContextCompat.getColor(this, color)
+        val density = resources.displayMetrics.density
+        view.background = GradientDrawable().apply {
+            cornerRadius = 22f * density
+            if (selected) setColor(c) else setColor(0)
+            setStroke((2 * density).toInt(), c)
+        }
+        view.setTextColor(ContextCompat.getColor(this, if (selected) R.color.text_primary else R.color.text_secondary))
     }
 
     private fun toggle(timeMs: Long) {
@@ -87,7 +127,7 @@ class MainActivity : AppCompatActivity() {
         startTimeMs = timeMs
         running = true
         resultText.text = ""
-        showTime(0)
+        if (achievements.hardMode) timerText.text = "?.??" else showTime(0)
         setButtonStyle(isRunning = true)
         Choreographer.getInstance().postFrameCallback(ticker)
     }
@@ -101,7 +141,7 @@ class MainActivity : AppCompatActivity() {
         showResult(hundredths)
         setButtonStyle(isRunning = false)
 
-        val unlocked = achievements.recordAttempt(hundredths)
+        val unlocked = achievements.recordAttempt(hundredths, achievements.hardMode)
         showUnlocked(unlocked)
         updateStats()
 
@@ -149,10 +189,13 @@ class MainActivity : AppCompatActivity() {
         }, BANNER_TOKEN, SystemClock.uptimeMillis() + 3000)
     }
 
+    /** Shows the stats for the mode currently selected. */
     private fun updateStats() {
+        val hard = achievements.hardMode
         statsText.text = String.format(
-            Locale.US, "Tries: %d   •   Perfect: %d   •   Best streak: %d",
-            achievements.totalTries, achievements.totalPerfects, achievements.bestStreak
+            Locale.US, "%s   Tries: %d   •   Perfect: %d   •   Best streak: %d",
+            if (hard) "HARD" else "EASY",
+            achievements.tries(hard), achievements.perfects(hard), achievements.bestStreak(hard)
         )
     }
 
@@ -168,6 +211,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+        updateStats()   // in case achievements were reset on the other screen
         ads.resume()
     }
 
