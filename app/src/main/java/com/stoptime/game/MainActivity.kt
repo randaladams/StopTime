@@ -89,6 +89,7 @@ class MainActivity : AppCompatActivity() {
 
         findViewById<android.view.View>(R.id.achievementsButton).setOnClickListener {
             if (!running && !locked) {
+                Sounds.click()
                 returningFromAchievements = true
                 startActivity(Intent(this, AchievementsActivity::class.java))
             }
@@ -97,7 +98,9 @@ class MainActivity : AppCompatActivity() {
         // "Go Pro" link: free version only.
         findViewById<TextView>(R.id.upgradeButton).apply {
             if (BuildConfig.IS_PRO) visibility = android.view.View.GONE
-            else setOnClickListener { if (!running && !locked) ProUpgrade.open(this@MainActivity) }
+            else setOnClickListener {
+                if (!running && !locked) { Sounds.click(); ProUpgrade.open(this@MainActivity) }
+            }
         }
 
         easyButton.setOnClickListener { setMode(hard = false) }
@@ -107,6 +110,7 @@ class MainActivity : AppCompatActivity() {
         themeButton.text = if (AppTheme.isDark(this)) "☀️" else "🌙"
         themeButton.setOnClickListener {
             if (!running && !locked) {
+                Sounds.click()
                 val goingDark = !AppTheme.isDark(this)
                 if (goingDark) {
                     // The screen redraws after a theme change, so the pop-up is shown after that.
@@ -131,6 +135,7 @@ class MainActivity : AppCompatActivity() {
     /** Switch between Easy and Hard (not allowed while the clock is running). */
     private fun setMode(hard: Boolean) {
         if (running || locked || achievements.hardMode == hard) return
+        Sounds.click()
         achievements.hardMode = hard
         val earned = achievements.unlockAction(if (hard) Achievements.BRAVERY else Achievements.CHICKENED_OUT)
         if (earned != null) showUnlocked(listOf(earned))
@@ -165,6 +170,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startClock(timeMs: Long) {
+        Sounds.start()
         startTimeMs = timeMs
         running = true
         resultText.text = ""
@@ -178,12 +184,15 @@ class MainActivity : AppCompatActivity() {
         Choreographer.getInstance().removeFrameCallback(ticker)
 
         val hundredths = hundredthsBetween(startTimeMs, timeMs)
+        if (hundredths == 100) Sounds.perfect() else Sounds.stop()
         showTime(hundredths)
         showResult(hundredths)
         setButtonStyle(isRunning = false)
 
         val unlocked = achievements.recordAttempt(hundredths, achievements.hardMode)
-        showUnlocked(unlocked)
+        if (unlocked.isNotEmpty()) {
+            handler.postDelayed({ showUnlocked(unlocked) }, if (hundredths == 100) 700L else 250L)
+        }
         updateStats()
     }
 
@@ -211,6 +220,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun showUnlocked(list: List<Achievement>) {
         if (list.isEmpty()) return
+        Sounds.achievement()
         banner.text = if (list.size == 1) "🏆 Achievement unlocked: ${list[0].title}"
                       else "🏆 ${list.size} achievements unlocked: " + list.joinToString(" • ") { it.title }
         banner.alpha = 0f

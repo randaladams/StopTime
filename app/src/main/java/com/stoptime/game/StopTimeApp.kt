@@ -8,6 +8,7 @@ class StopTimeApp : Application() {
     override fun onCreate() {
         super.onCreate()
         AppTheme.apply(this)
+        Sounds.init(this)
     }
 }
 

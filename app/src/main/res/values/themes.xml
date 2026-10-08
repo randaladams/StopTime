@@ -5,5 +5,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="colorAccent">@color/start_green</item>
+        <!-- Turn off Android's own tap sound so it doesn't double up with ours -->
+        <item name="android:soundEffectsEnabled">false</item>
     </style>
 </resources>

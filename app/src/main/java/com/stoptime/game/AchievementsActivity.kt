@@ -23,8 +23,8 @@ class AchievementsActivity : AppCompatActivity() {
         fitToSystemBars(findViewById(R.id.root))
 
         manager = AchievementManager(this)
-        findViewById<android.view.View>(R.id.backButton).setOnClickListener { finish() }
-        findViewById<Button>(R.id.resetButton).setOnClickListener { confirmReset() }
+        findViewById<android.view.View>(R.id.backButton).setOnClickListener { Sounds.click(); finish() }
+        findViewById<Button>(R.id.resetButton).setOnClickListener { Sounds.click(); confirmReset() }
 
         findViewById<TextView>(R.id.versionText).text =
             "${getString(R.string.app_name)}  •  Version ${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
