@@ -39,6 +39,7 @@ object Achievements {
     const val BRAVERY = "action_bravery"
     const val CHICKENED_OUT = "action_chickened_out"
     const val DARK_SIDE = "action_dark_side"
+    const val SILENCE = "action_silence"
 
     val ALL: List<Achievement> = listOf(
         // ================= GENERAL (any mode) =================
@@ -72,6 +73,7 @@ object Achievements {
         Achievement(BRAVERY, "Bravery", "Switch to Hard mode", action = true) { false },
         Achievement(CHICKENED_OUT, "Chickened Out", "Switch back to Easy mode", action = true) { false },
         Achievement(DARK_SIDE, "Joined the Dark Side", "Switch to Dark mode", action = true) { false },
+        Achievement(SILENCE, "Silence", "Turn the sound off", action = true) { false },
 
         // ================= HARD MODE (clock hidden) =================
         Achievement("hard_first", "Blindfolded", "Finish your first Hard mode attempt", hardMode = true) { it.hard },

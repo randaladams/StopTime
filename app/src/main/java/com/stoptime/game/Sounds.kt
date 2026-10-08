@@ -17,8 +17,19 @@ object Sounds {
     private var perfect = 0
     private var achievement = 0
 
+    private const val PREFS = "stoptime_settings"
+    private const val KEY_MUTED = "muted"
+    var muted = false
+        private set
+
+    fun setMuted(context: Context, value: Boolean) {
+        muted = value
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit().putBoolean(KEY_MUTED, value).apply()
+    }
+
     fun init(context: Context) {
         if (pool != null) return
+        muted = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).getBoolean(KEY_MUTED, false)
         val p = SoundPool.Builder()
             .setMaxStreams(4)
             .setAudioAttributes(
@@ -36,6 +47,7 @@ object Sounds {
     }
 
     private fun play(id: Int, volume: Float = 1f) {
+        if (muted) return
         pool?.play(id, volume, volume, 1, 0, 1f)
     }
 

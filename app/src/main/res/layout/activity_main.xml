@@ -29,28 +29,40 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/soundButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/circle_button"
+            android:contentDescription="@string/toggle_sound"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="19dp" />
+
+        <TextView
             android:id="@+id/themeButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/circle_button"
             android:contentDescription="@string/toggle_theme"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:includeFontPadding="false"
-            android:textSize="20dp" />
+            android:textSize="19dp" />
 
         <TextView
             android:id="@+id/achievementsButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_marginStart="10dp"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
             android:background="@drawable/circle_button"
             android:contentDescription="@string/achievements_title"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:gravity="center"
             android:includeFontPadding="false"
             android:text="🏆"
-            android:textSize="20dp" />
+            android:textSize="19dp" />
     </LinearLayout>
 
     <!-- Stats: three columns that never wrap -->

@@ -35,6 +35,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var easyButton: TextView
     private lateinit var hardButton: TextView
     private lateinit var themeButton: TextView
+    private lateinit var soundButton: TextView
 
     private lateinit var achievements: AchievementManager
     private lateinit var ads: AdsManager
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity() {
         easyButton = findViewById(R.id.easyButton)
         hardButton = findViewById(R.id.hardButton)
         themeButton = findViewById(R.id.themeButton)
+        soundButton = findViewById(R.id.soundButton)
 
         achievements = AchievementManager(this)
         ads = AdsManager(this)
@@ -105,6 +107,20 @@ class MainActivity : AppCompatActivity() {
 
         easyButton.setOnClickListener { setMode(hard = false) }
         hardButton.setOnClickListener { setMode(hard = true) }
+
+        // Sound on / off. Shows the CURRENT state.
+        soundButton.text = if (Sounds.muted) "🔇" else "🔊"
+        soundButton.setOnClickListener {
+            if (running || locked) return@setOnClickListener
+            val turnOff = !Sounds.muted
+            Sounds.setMuted(this, turnOff)
+            soundButton.text = if (turnOff) "🔇" else "🔊"
+            if (turnOff) {
+                achievements.unlockAction(Achievements.SILENCE)?.let { showUnlocked(listOf(it)) }
+            } else {
+                Sounds.click()   // a little confirmation that sound is back
+            }
+        }
 
         // Light / Dark toggle. Shows the mode you'd switch TO.
         themeButton.text = if (AppTheme.isDark(this)) "☀️" else "🌙"
