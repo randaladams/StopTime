@@ -83,6 +83,17 @@ class AchievementManager(context: Context) {
         return newOnes
     }
 
+    /**
+     * Unlock an achievement because the player DID something (switched mode, theme...).
+     * @return the achievement if it was newly unlocked, or null if already had it.
+     */
+    fun unlockAction(id: String): Achievement? {
+        if (isUnlocked(id)) return null
+        val achievement = Achievements.ALL.firstOrNull { it.id == id } ?: return null
+        prefs.edit().putStringSet(KEY_UNLOCKED, unlockedIds() + id).apply()
+        return achievement
+    }
+
     /** Wipes ALL achievements and stats. Keeps the Easy/Hard setting. */
     fun resetAll() {
         val keepHard = hardMode

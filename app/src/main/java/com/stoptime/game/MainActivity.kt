@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.stoptime.game.achievements.Achievement
 import com.stoptime.game.achievements.AchievementManager
+import com.stoptime.game.achievements.Achievements
+import android.content.pm.ActivityInfo
 import com.stoptime.game.ads.AdsManager
 import java.util.Locale
 import kotlin.math.abs
@@ -56,6 +58,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("ClickableViewAccessibility")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT   // never rotate
         setContentView(R.layout.activity_main)
         fitToSystemBars(findViewById(R.id.root))
 
@@ -97,7 +100,21 @@ class MainActivity : AppCompatActivity() {
         // Light / Dark toggle. Shows the mode you'd switch TO.
         themeButton.text = if (AppTheme.isDark(this)) "☀️" else "🌙"
         themeButton.setOnClickListener {
-            if (!running && !locked) AppTheme.setDark(this, !AppTheme.isDark(this))
+            if (!running && !locked) {
+                val goingDark = !AppTheme.isDark(this)
+                if (goingDark) {
+                    // The screen redraws after a theme change, so the pop-up is shown after that.
+                    achievements.unlockAction(Achievements.DARK_SIDE)?.let { pendingUnlocks += it }
+                }
+                AppTheme.setDark(this, goingDark)
+            }
+        }
+
+        // Show any achievement earned just before the screen was redrawn (theme switch).
+        if (pendingUnlocks.isNotEmpty()) {
+            val list = pendingUnlocks.toList()
+            pendingUnlocks.clear()
+            banner.post { showUnlocked(list) }
         }
 
         setButtonStyle(isRunning = false)
@@ -109,6 +126,8 @@ class MainActivity : AppCompatActivity() {
     private fun setMode(hard: Boolean) {
         if (running || locked || achievements.hardMode == hard) return
         achievements.hardMode = hard
+        val earned = achievements.unlockAction(if (hard) Achievements.BRAVERY else Achievements.CHICKENED_OUT)
+        if (earned != null) showUnlocked(listOf(earned))
         showModeStyle()
         resultText.text = ""
         showTime(0)
@@ -254,6 +273,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private val BANNER_TOKEN = Any()
+        private val pendingUnlocks = mutableListOf<Achievement>()
         private const val BANNER_SHOW_MS = 5000L   // how long "Achievement unlocked" stays up
     }
 }

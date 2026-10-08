@@ -18,6 +18,7 @@ class AchievementsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        requestedOrientation = android.content.pm.ActivityInfo.SCREEN_ORIENTATION_PORTRAIT   // never rotate
         setContentView(R.layout.activity_achievements)
         fitToSystemBars(findViewById(R.id.root))
 

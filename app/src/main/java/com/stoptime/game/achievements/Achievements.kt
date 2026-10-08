@@ -26,6 +26,7 @@ data class Achievement(
     val title: String,
     val description: String,
     val hardMode: Boolean = false,   // true = listed in the "Hard Mode" section
+    val action: Boolean = false,     // true = unlocked by doing something (not by a try); see unlockAction()
     val check: (AttemptInfo) -> Boolean
 )
 
@@ -34,6 +35,11 @@ data class Achievement(
  * To add a new achievement, just add one more line to this list.
  */
 object Achievements {
+    // ids for the action achievements
+    const val BRAVERY = "action_bravery"
+    const val CHICKENED_OUT = "action_chickened_out"
+    const val DARK_SIDE = "action_dark_side"
+
     val ALL: List<Achievement> = listOf(
         // ================= GENERAL (any mode) =================
         // --- Accuracy ---
@@ -61,6 +67,11 @@ object Achievements {
         Achievement("tries_10", "Warming Up", "Play 10 times") { it.totalTries >= 10 },
         Achievement("tries_100", "Dedicated", "Play 100 times") { it.totalTries >= 100 },
         Achievement("tries_1000", "Obsessed", "Play 1,000 times") { it.totalTries >= 1000 },
+
+        // --- Unlocked by actions, not by tries (see AchievementManager.unlockAction) ---
+        Achievement(BRAVERY, "Bravery", "Switch to Hard mode", action = true) { false },
+        Achievement(CHICKENED_OUT, "Chickened Out", "Switch back to Easy mode", action = true) { false },
+        Achievement(DARK_SIDE, "Joined the Dark Side", "Switch to Dark mode", action = true) { false },
 
         // ================= HARD MODE (clock hidden) =================
         Achievement("hard_first", "Blindfolded", "Finish your first Hard mode attempt", hardMode = true) { it.hard },
