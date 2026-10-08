@@ -49,6 +49,9 @@ class AchievementManager(context: Context) {
         val perfects = totalPerfects + if (perfect) 1 else 0
         val streak = if (perfect) perfectStreak + 1 else 0
 
+        // Same exact time as the previous try (any mode)?
+        val sameRun = if (prefs.getInt(KEY_LAST_VALUE, -1) == hundredths) prefs.getInt(KEY_SAME_RUN, 0) + 1 else 1
+
         val modeTries = tries(hard) + 1
         val modePerfects = perfects(hard) + if (perfect) 1 else 0
         val modeStreak = if (perfect) streak(hard) + 1 else 0
@@ -61,7 +64,8 @@ class AchievementManager(context: Context) {
             perfectStreak = streak,
             hardTries = if (hard) modeTries else tries(true),
             hardPerfects = if (hard) modePerfects else perfects(true),
-            hardStreak = if (hard) modeStreak else streak(true)
+            hardStreak = if (hard) modeStreak else streak(true),
+            sameValueRun = sameRun
         )
 
         val unlocked = unlockedIds().toMutableSet()
@@ -78,6 +82,8 @@ class AchievementManager(context: Context) {
             .putInt(modeKey(hard, "streak"), modeStreak)
             .putInt(modeKey(hard, "best_streak"), maxOf(bestStreak(hard), modeStreak))
             .putStringSet(KEY_UNLOCKED, unlocked)
+            .putInt(KEY_LAST_VALUE, hundredths)
+            .putInt(KEY_SAME_RUN, sameRun)
             .apply()
 
         return newOnes
@@ -112,5 +118,7 @@ class AchievementManager(context: Context) {
         private const val KEY_BEST_STREAK = "best_streak"
         private const val KEY_UNLOCKED = "unlocked"
         private const val KEY_HARD_MODE = "hard_mode"
+        private const val KEY_LAST_VALUE = "last_value"
+        private const val KEY_SAME_RUN = "same_value_run"
     }
 }

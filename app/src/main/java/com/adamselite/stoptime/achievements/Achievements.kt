@@ -15,7 +15,9 @@ data class AttemptInfo(
     // Hard mode only
     val hardTries: Int,
     val hardPerfects: Int,
-    val hardStreak: Int
+    val hardStreak: Int,
+    // How many tries in a row (including this one) stopped on this exact same time
+    val sameValueRun: Int = 1
 ) {
     val isPerfect get() = hundredths == 100
     val offBy get() = kotlin.math.abs(hundredths - 100)
@@ -54,6 +56,8 @@ object Achievements {
         Achievement("trigger_happy", "Trigger Happy", "Stop the clock under 0.50") { it.hundredths < 50 },
         Achievement("daydreamer", "Daydreamer", "Let the clock run past 3.00") { it.hundredths > 300 },
         Achievement("palindrome", "Mirror Image", "Stop at exactly 1.11") { it.hundredths == 111 },
+        Achievement("same_2", "Statistical Anomaly", "Stop on the same time twice in a row") { it.sameValueRun >= 2 },
+        Achievement("same_3", "Fluke", "Stop on the same time 3 times in a row") { it.sameValueRun >= 3 },
 
         // --- Perfect counts ---
         Achievement("perfect_3", "Hat Trick", "Get 3 perfect stops total") { it.totalPerfects >= 3 },
