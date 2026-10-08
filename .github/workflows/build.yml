@@ -23,17 +23,11 @@ jobs:
         with:
           gradle-version: '8.9'
 
-      - name: Build Free and Pro APKs
-        run: gradle assembleFreeDebug assembleProDebug --stacktrace
+      - name: Build APK
+        run: gradle assembleDebug --stacktrace
 
-      - name: Upload Free APK
+      - name: Upload APK
         uses: actions/upload-artifact@v7
         with:
-          name: StopTime-Free-APK
-          path: app/build/outputs/apk/free/debug/*.apk
-
-      - name: Upload Pro APK
-        uses: actions/upload-artifact@v7
-        with:
-          name: StopTime-Pro-APK
-          path: app/build/outputs/apk/pro/debug/*.apk
+          name: StopTime-APK
+          path: app/build/outputs/apk/debug/*.apk
