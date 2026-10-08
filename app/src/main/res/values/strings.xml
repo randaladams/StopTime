@@ -13,6 +13,7 @@
     <string name="stat_tries">TRIES</string>
     <string name="stat_perfect">PERFECT</string>
     <string name="stat_streak">BEST STREAK</string>
+    <string name="go_pro">⭐ Go Pro – remove ads</string>
     <string name="toggle_theme">Switch light or dark mode</string>
     <string name="reset_all">Reset all achievements</string>
 </resources>

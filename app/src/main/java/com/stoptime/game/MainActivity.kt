@@ -94,6 +94,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        // "Go Pro" link: free version only.
+        findViewById<TextView>(R.id.upgradeButton).apply {
+            if (BuildConfig.IS_PRO) visibility = android.view.View.GONE
+            else setOnClickListener { if (!running && !locked) ProUpgrade.open(this@MainActivity) }
+        }
+
         easyButton.setOnClickListener { setMode(hard = false) }
         hardButton.setOnClickListener { setMode(hard = true) }
 

@@ -12,8 +12,8 @@ android {
         applicationId = "com.stoptime.game"
         minSdk = 26
         targetSdk = 35
-        versionCode = 6
-        versionName = "1.5"
+        versionCode = 7
+        versionName = "1.6"
     }
 
     // Two versions of the app are built from the same code:
@@ -26,10 +26,12 @@ android {
             applicationIdSuffix = ".free"
             versionNameSuffix = "-free"
             resValue("string", "app_name", "StopTime")
+            buildConfigField("boolean", "IS_PRO", "false")
         }
         create("pro") {
             dimension = "version"
             resValue("string", "app_name", "StopTime Pro")
+            buildConfigField("boolean", "IS_PRO", "true")
         }
     }
 

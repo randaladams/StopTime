@@ -75,4 +75,13 @@
         android:text="@string/reset_all"
         android:textAllCaps="false"
         android:textColor="@color/stop_red" />
+
+    <TextView
+        android:id="@+id/versionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingBottom="10dp"
+        android:textColor="@color/text_secondary"
+        android:textSize="11sp" />
 </LinearLayout>
