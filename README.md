@@ -17,7 +17,15 @@ screen), with a one-time **"Remove Ads"** in-app purchase (Google Play Billing).
 | GitHub build | `.github/workflows/build.yml` |
 
 ## Building
-Every push to `main` builds the APK on GitHub: **Actions** tab → latest run → **Artifacts** → `StopTime-APK`.
+- **Test APK:** every push to `main` builds it on GitHub: **Actions** → latest run → **Artifacts** → `StopTime-APK`.
+  Test builds always use Google's test ads.
+- **Google Play release (.aab):** **Actions** → **Build StopTime RELEASE** → **Run workflow** → `StopTime-Release-AAB`.
+  Needs the four signing secrets (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) and your real
+  AdMob IDs at the top of `app/build.gradle.kts`.
+- Raise `versionCode` in `app/build.gradle.kts` before every Google Play upload.
+
+## Store listing
+`store/` holds the Play icon, feature graphic and listing text; `docs/` is the public GitHub Pages site with the privacy policy (regenerate the art with `tools/make_store_art.py`).
 
 ## Testing "Remove Ads" on a sideloaded test build
 Long-press the version line at the bottom of the Achievements screen to pretend the purchase

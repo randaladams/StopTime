@@ -1,0 +1,43 @@
+STOPTIME — GOOGLE PLAY STORE LISTING TEXT
+(copy/paste into Play Console -> Grow users -> Store presence -> Main store listing)
+
+APP NAME (max 30 characters):
+StopTime: Stop at 1 Second
+
+SHORT DESCRIPTION (max 80 characters):
+Stop the clock at exactly 1.00 second. Sounds easy. It isn't. Can you do it?
+
+FULL DESCRIPTION (max 4000 characters):
+How good is your sense of time?
+
+Tap START, then tap STOP at exactly 1.00 second. That's it. One button, one second, and a lot harder than it sounds.
+
+⏱ SIMPLE TO PLAY, HARD TO MASTER
+The clock counts up in hundredths of a second. Stop it at exactly 1.00 for a perfect score. Miss by 0.01 and you'll know it.
+
+🙈 HARD MODE
+Think you've got it? Switch to Hard mode and the clock disappears. No numbers, no help, just your inner clock. Your time is revealed only after you stop.
+
+🏆 33 ACHIEVEMENTS
+Earn achievements for perfect stops, streaks, near misses, playing blind in Hard mode, and a few surprises along the way. Can you unlock Statistical Anomaly? What about Fluke?
+
+📊 TRACK YOUR PROGRESS
+See your tries, perfect stops and best streak for both Easy and Hard mode.
+
+✨ MORE
+• Light and Dark themes
+• Satisfying sound effects (with a mute button)
+• Fair, precise timing that starts the moment your finger touches the screen
+• Small and fast, no account needed
+
+StopTime is free to play with ads. A one-time "Remove Ads" purchase removes all ads forever, and your achievements stay with you.
+
+One second. How hard can it be?
+
+CATEGORY:  Game -> Casual
+TAGS (pick up to 5 in Play Console): Casual, Reflex, Timing, Single player, Offline
+
+CONTACT EMAIL: randy@adamselite.com
+WEBSITE: https://YOUR-GITHUB-USERNAME.github.io/StopTime/
+PRIVACY POLICY URL: https://YOUR-GITHUB-USERNAME.github.io/StopTime/privacy-policy.html
+  (replace YOUR-GITHUB-USERNAME; works once GitHub Pages is turned on for the repo, see the launch guide)
