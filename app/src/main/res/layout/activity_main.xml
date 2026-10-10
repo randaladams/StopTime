@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:orientation="vertical">
+
+    <!-- Top bar: title + two round icon buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="12dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/app_name"
+            android:textColor="@color/text_primary"
+            android:textSize="26sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/soundButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/circle_button"
+            android:contentDescription="@string/toggle_sound"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="19dp" />
+
+        <TextView
+            android:id="@+id/themeButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle_button"
+            android:contentDescription="@string/toggle_theme"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:textSize="19dp" />
+
+        <TextView
+            android:id="@+id/achievementsButton"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:background="@drawable/circle_button"
+            android:contentDescription="@string/achievements_title"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:gravity="center"
+            android:includeFontPadding="false"
+            android:text="🏆"
+            android:textSize="19dp" />
+    </LinearLayout>
+
+    <!-- Stats: three columns that never wrap -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/statTries"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:maxLines="1"
+                android:text="@string/stat_tries"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/statPerfects"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:maxLines="1"
+                android:text="@string/stat_perfect"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/statStreak"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="0"
+                android:textColor="@color/text_primary"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:letterSpacing="0.1"
+                android:maxLines="1"
+                android:text="@string/stat_streak"
+                android:textColor="@color/text_secondary"
+                android:textSize="11sp" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Easy / Hard selector -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/easyButton"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:gravity="center"
+            android:text="@string/easy"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/hardButton"
+            android:layout_width="110dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="8dp"
+            android:gravity="center"
+            android:text="@string/hard"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/targetText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/target"
+        android:textColor="@color/text_secondary"
+        android:textSize="16sp" />
+
+    <!-- The clock -->
+    <TextView
+        android:id="@+id/timerText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="monospace"
+        android:gravity="center"
+        android:text="0.00"
+        android:textColor="@color/text_primary"
+        android:textSize="88sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:gravity="center"
+        android:minHeight="32dp"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <!-- START / STOP button -->
+    <Button
+        android:id="@+id/startStopButton"
+        android:layout_width="240dp"
+        android:layout_height="96dp"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/start"
+        android:textColor="@color/on_accent"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+
+    <!-- "Achievement unlocked" pop-up. Fixed height so it never pushes the screen around. -->
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="76dp"
+        android:layout_marginTop="16dp"
+        android:paddingStart="24dp"
+        android:paddingEnd="24dp">
+
+        <TextView
+            android:id="@+id/achievementBanner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/surface"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="3"
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp"
+            android:textColor="@color/gold"
+            android:textSize="13sp"
+            android:visibility="invisible" />
+    </FrameLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <!-- Small upgrade link (free version only; hidden in Pro) -->
+    <TextView
+        android:id="@+id/upgradeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="6dp"
+        android:background="?attr/selectableItemBackground"
+        android:paddingStart="12dp"
+        android:paddingTop="6dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="6dp"
+        android:text="@string/go_pro"
+        android:textColor="@color/gold"
+        android:textSize="13sp"
+        android:textStyle="bold" />
+
+    <!-- Banner ad goes here (free version only) -->
+    <FrameLayout
+        android:id="@+id/adContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+</LinearLayout>
