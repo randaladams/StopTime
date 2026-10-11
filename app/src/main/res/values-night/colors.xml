@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- DARK mode colors -->
+<resources>
+    <color name="background">#FF121212</color>
+    <color name="surface">#FF1E1E1E</color>
+    <color name="text_primary">#FFFFFFFF</color>
+    <color name="text_secondary">#FFB0B0B0</color>
+    <color name="on_accent">#FFFFFFFF</color>
+    <color name="start_green">#FF2E7D32</color>
+    <color name="stop_red">#FFC62828</color>
+    <color name="gold">#FFFFC107</color>
+    <color name="perfect">#FF66BB6A</color>
+    <color name="miss">#FFEF9A9A</color>
+    <color name="locked">#FF555555</color>
+</resources>

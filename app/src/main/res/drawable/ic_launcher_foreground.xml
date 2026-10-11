@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Stopwatch icon (matches the Google Play store icon) -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp" android:height="108dp"
+    android:viewportWidth="108" android:viewportHeight="108">
+    <path android:fillColor="#FFFFFFFF" android:pathData="M49.16,26.64H58.84V31.48H49.16Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M52.02,31.04H55.98V36.10H52.02Z" />
+    <path android:fillColor="#FFFFFFFF" android:pathData="M32,57a22,22 0,1 0,44,0a22,22 0,1 0,-44,0Z" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="1.10" android:pathData="M54.00,42.22L54.00,39.07" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M61.39,44.20L62.50,42.28" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M66.80,49.61L68.72,48.50" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="1.10" android:pathData="M68.78,57.00L71.93,57.00" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M66.80,64.39L68.72,65.50" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M61.39,69.80L62.50,71.72" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="1.10" android:pathData="M54.00,71.78L54.00,74.93" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M46.61,69.80L45.50,71.72" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M41.20,64.39L39.28,65.50" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="1.10" android:pathData="M39.22,57.00L36.07,57.00" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M41.20,49.61L39.28,48.50" />
+    <path android:strokeColor="#FF1B5E20" android:strokeWidth="0.66" android:pathData="M46.61,44.20L45.50,42.28" />
+    <path android:strokeColor="#FFC62828" android:strokeWidth="1.76" android:strokeLineCap="round" android:pathData="M54,57L54,43.32" />
+    <path android:fillColor="#FFC62828" android:pathData="M51.80,57a2.20,2.20 0,1 0,4.40,0a2.20,2.20 0,1 0,-4.40,0Z" />
+</vector>

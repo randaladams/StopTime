@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.StopTime" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@color/background</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="colorAccent">@color/start_green</item>
+        <!-- Turn off Android's own tap sound so it doesn't double up with ours -->
+        <item name="android:soundEffectsEnabled">false</item>
+    </style>
+</resources>
