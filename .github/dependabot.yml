@@ -1,0 +1,23 @@
+# Checks once a month for newer versions and opens a pull request.
+# The test build runs on each pull request, so a broken update shows a red X before it's merged.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: "/"
+    schedule:
+      interval: monthly
+    groups:
+      actions:
+        patterns: ["*"]
+
+  - package-ecosystem: gradle
+    directory: "/"
+    schedule:
+      interval: monthly
+    groups:
+      gradle-minor-and-patch:
+        update-types: ["minor", "patch"]
+    ignore:
+      # Major upgrades (e.g. Android Gradle Plugin 9) are done by hand, not automatically.
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
