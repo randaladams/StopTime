@@ -48,7 +48,7 @@ jobs:
           INPUT_VERSION: ${{ inputs.version }}
         run: |
           LAST=$(git tag -l 'v*' --sort=-v:refname | head -n1 | sed 's/^v//')
-          LAST=${LAST:-0.0.0}
+          LAST=${LAST:-1.0.0}   # 1.0.0 = the version on Google Play before automatic versioning
           if [ "$GITHUB_EVENT_NAME" = "workflow_dispatch" ]; then
             V=$(echo "$INPUT_VERSION" | tr -d ' v')
             if ! echo "$V" | grep -Eq '^[0-9]+\.[0-9]{1,2}\.[0-9]{1,2}$'; then
@@ -85,7 +85,7 @@ jobs:
         if: steps.version.outputs.release == 'false'
         uses: actions/upload-artifact@v7
         with:
-          name: StopTime-${{ steps.version.outputs.name }}-test-apk
+          name: StopTime-${{ steps.version.outputs.name }}
           path: app/build/outputs/apk/debug/*.apk
 
       # ---------------- release build (Run workflow with a version) ----------------
