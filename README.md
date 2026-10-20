@@ -22,13 +22,13 @@ Everything runs in one GitHub workflow: `.github/workflows/android.yml` ("Androi
 
 | You want to... | Do this | You get |
 |---|---|---|
-| Try a change on your phone | Push / upload to `main` (or open a pull request) | **Actions → latest run → Artifacts →** `StopTime-<version>-test-apk` (test ads) |
+| Try a change on your phone | Push / upload to `main` (or open a pull request) | **Actions → latest run → Artifacts →** `StopTime-<version>-test.<n>` (test ads) |
 | Release to Google Play | **Actions → Android → Run workflow →** type the new version, e.g. `1.0.1` | A GitHub **Release** `v1.0.1` with `StopTime-1.0.1.aab` (upload to Play Console) and a signed `.apk` |
 
 ### Versions (automatic)
 - You only choose the version number when releasing: `major.minor.patch`, e.g. `1.0.1` for a fix, `1.1.0` for new features.
 - `versionCode` is calculated from it: `major*10000 + minor*100 + patch` (1.0.1 → 10001), so it always goes up, as Google Play requires.
-- The workflow refuses a version that was already released or is lower than the last one.
+- The workflow refuses a version that was already released or is lower than the last one. Before the first automatic release the last version counts as 1.0.0 (what was on Google Play), so the first release is 1.0.1 or higher.
 - Every release is tagged (`v1.0.1`), so you can always see exactly what code went to Google Play.
 - Test builds are named like `1.0.1-test.42` (last release + build number).
 
