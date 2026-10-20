@@ -21,3 +21,9 @@ updates:
       # Major upgrades (e.g. Android Gradle Plugin 9) are done by hand, not automatically.
       - dependency-name: "*"
         update-types: ["version-update:semver-major"]
+      # Newer AndroidX core/appcompat need Android API 37 + Android Gradle Plugin 9.
+      # Remove these two once that upgrade is done.
+      - dependency-name: "androidx.core:core-ktx"
+        versions: [">=1.17.0"]
+      - dependency-name: "androidx.appcompat:appcompat"
+        versions: [">=1.8.0"]

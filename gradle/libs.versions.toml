@@ -2,7 +2,7 @@
 # Dependabot (.github/dependabot.yml) opens a pull request here when updates come out.
 [versions]
 agp = "8.13.2"
-kotlin = "2.0.21"
+kotlin = "2.4.21"
 coreKtx = "1.13.1"
 appcompat = "1.7.0"
 playServicesAds = "23.6.0"
