@@ -26,7 +26,7 @@ android {
         minSdk = 26
         targetSdk = 36
         // versionCode MUST go up by at least 1 for every upload to Google Play.
-        versionCode = 13
+        versionCode = 14
         versionName = "1.0"
     }
 
