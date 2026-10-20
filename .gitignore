@@ -1,0 +1,17 @@
+*.iml
+.gradle/
+/local.properties
+/.idea/
+.DS_Store
+/build/
+/app/build/
+/captures
+.externalNativeBuild
+.cxx
+*.keystore
+*.jks
+# Never commit signing keys or their text form
+*.jks
+*.keystore
+KEYSTORE_BASE64*
+StopTime-upload-key-INFO*

@@ -1,0 +1,21 @@
+# All library and build-tool versions in ONE place.
+# Dependabot (.github/dependabot.yml) opens a pull request here when updates come out.
+[versions]
+agp = "8.13.2"
+kotlin = "2.0.21"
+coreKtx = "1.13.1"
+appcompat = "1.7.0"
+playServicesAds = "23.6.0"
+ump = "4.0.0"
+billing = "8.0.0"
+
+[libraries]
+androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+play-services-ads = { module = "com.google.android.gms:play-services-ads", version.ref = "playServicesAds" }
+ump = { module = "com.google.android.ump:user-messaging-platform", version.ref = "ump" }
+billing = { module = "com.android.billingclient:billing", version.ref = "billing" }
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }

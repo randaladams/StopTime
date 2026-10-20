@@ -16,16 +16,33 @@ screen), with a one-time **"Remove Ads"** in-app purchase (Google Play Billing).
 | Screen layouts | `app/src/main/res/layout/` |
 | GitHub build | `.github/workflows/build.yml` |
 
-## Building
-- **Test APK:** every push to `main` builds it on GitHub: **Actions** → latest run → **Artifacts** → `StopTime-APK`.
-  Test builds always use Google's test ads.
-- **Google Play release (.aab):** **Actions** → **Build StopTime RELEASE** → **Run workflow** → `StopTime-Release-AAB`.
-  Needs the four signing secrets (KEYSTORE_BASE64, KEYSTORE_PASSWORD, KEY_ALIAS, KEY_PASSWORD) and your real
-  AdMob IDs at the top of `app/build.gradle.kts`.
-- Raise `versionCode` in `app/build.gradle.kts` before every Google Play upload.
+## Building and releasing
+
+Everything runs in one GitHub workflow: `.github/workflows/android.yml` ("Android").
+
+| You want to... | Do this | You get |
+|---|---|---|
+| Try a change on your phone | Push / upload to `main` (or open a pull request) | **Actions → latest run → Artifacts →** `StopTime-<version>-test-apk` (test ads) |
+| Release to Google Play | **Actions → Android → Run workflow →** type the new version, e.g. `1.0.1` | A GitHub **Release** `v1.0.1` with `StopTime-1.0.1.aab` (upload to Play Console) and a signed `.apk` |
+
+### Versions (automatic)
+- You only choose the version number when releasing: `major.minor.patch`, e.g. `1.0.1` for a fix, `1.1.0` for new features.
+- `versionCode` is calculated from it: `major*10000 + minor*100 + patch` (1.0.1 → 10001), so it always goes up, as Google Play requires.
+- The workflow refuses a version that was already released or is lower than the last one.
+- Every release is tagged (`v1.0.1`), so you can always see exactly what code went to Google Play.
+- Test builds are named like `1.0.1-test.42` (last release + build number).
+
+### Tool and library versions
+- Gradle is pinned by the Gradle wrapper (`gradle/wrapper/gradle-wrapper.properties`).
+- Plugin and library versions are all in `gradle/libs.versions.toml`.
+- Dependabot checks monthly and opens a pull request for updates; the test build runs on it first.
+
+### Secrets needed for releases
+`KEYSTORE_BASE64`, `KEYSTORE_PASSWORD`, `KEY_ALIAS`, `KEY_PASSWORD` (repo → Settings → Secrets and variables → Actions).
+Real AdMob IDs are at the top of `app/build.gradle.kts`; test builds always use Google's test ads.
 
 ## Store listing
-`store/` holds the Play icon, feature graphic and listing text; `docs/` is the public GitHub Pages site with the privacy policy (regenerate the art with `tools/make_store_art.py`).
+`store/` holds the Play icon, feature graphic and listing text; `docs/` is the public GitHub Pages site with the privacy policy.
 
 ## Testing "Remove Ads" on a sideloaded test build
 Long-press the version line at the bottom of the Achievements screen to pretend the purchase

@@ -1,6 +1,6 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.kotlin.android)
 }
 
 // =====================================================================
@@ -16,6 +16,16 @@ val admobAppIdTest        = "ca-app-pub-3940256099942544~3347511713"
 val admobBannerIdTest     = "ca-app-pub-3940256099942544/9214589741"
 val admobInterstitialTest = "ca-app-pub-3940256099942544/1033173712"
 
+// =====================================================================
+//  VERSION  —  set automatically by GitHub Actions, never edited by hand.
+//  * Releases: Actions -> "Android" -> Run workflow -> type a version like 1.0.1.
+//    versionCode = major*10000 + minor*100 + patch  (1.0.1 -> 10001), so it always
+//    goes up when the version goes up, as Google Play requires.
+//  * Test builds: versionName like "1.0.1-test.42", versionCode 1.
+// =====================================================================
+val appVersionName: String = System.getenv("STOPTIME_VERSION_NAME") ?: "0.0.0-dev"
+val appVersionCode: Int = System.getenv("STOPTIME_VERSION_CODE")?.toIntOrNull() ?: 1
+
 android {
     namespace = "com.adamselite.stoptime"
     compileSdk = 36
@@ -25,9 +35,9 @@ android {
         applicationId = "com.adamselite.stoptime"
         minSdk = 26
         targetSdk = 36
-        // versionCode MUST go up by at least 1 for every upload to Google Play.
-        versionCode = 14
-        versionName = "1.0"
+        // Set automatically by the GitHub workflow (see "VERSION" above). Don't edit by hand.
+        versionCode = appVersionCode
+        versionName = appVersionName
     }
 
     // Release signing. The key + passwords come from GitHub Secrets (see .github/workflows/release.yml).
@@ -81,15 +91,11 @@ tasks.matching { it.name == "bundleRelease" || it.name == "assembleRelease" }.co
     }
 }
 
+// Versions are in gradle/libs.versions.toml
 dependencies {
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.appcompat:appcompat:1.7.0")
-
-    // Google AdMob (banner + full-screen ads)
-    implementation("com.google.android.gms:play-services-ads:23.6.0")
-    // Google's consent pop-up for Europe/UK (required to show ads there)
-    implementation("com.google.android.ump:user-messaging-platform:4.0.0")
-
-    // Google Play Billing ("Remove Ads" purchase)
-    implementation("com.android.billingclient:billing:8.0.0")
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.play.services.ads)   // Google AdMob (banner + full-screen ads)
+    implementation(libs.ump)                 // Consent pop-up for Europe/UK (required to show ads there)
+    implementation(libs.billing)             // Google Play Billing ("Remove Ads" purchase)
 }

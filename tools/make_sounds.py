@@ -67,4 +67,24 @@ place(s, tone(1046.5, 0.8, 0.30, brass, attack=0.012) * 1.1, 0.14)           # C
 place(s, tone(1318.5, 0.8, 0.30, ((1, 1), (2, .3))) * 0.5, 0.14)             # E (harmony)
 save("snd_achievement", s)
 
+# 6. CELEBRATE (Master of Time / Blind Grandmaster): big fanfare + firework pops
+rng = np.random.default_rng(7)
+s = np.zeros(int(SR * 4.0))
+brass = ((1, 1), (3, .33), (5, .2), (7, .14))
+for i, f in enumerate([523.25, 659.25, 783.99, 1046.5]):             # rising C-E-G-C
+    place(s, tone(f, 0.3, 0.12, brass, attack=0.008) * 0.8, i * 0.12)
+for f in [523.25, 659.25, 783.99, 1046.5, 1318.5]:                   # big held chord
+    place(s, tone(f, 2.2, 0.8, ((1, 1), (2, .4), (3, .15)), attack=0.02) * 0.35, 0.52)
+for k in range(7):                                                   # pops with crackle tails
+    at = 0.6 + k * 0.45 + rng.uniform(-0.08, 0.08)
+    n = int(SR * 0.35); x = np.arange(n) / SR
+    boom = rng.normal(0, 1, n) * np.exp(-x / 0.05)
+    boom = np.convolve(boom, np.ones(12) / 12, mode="same")          # soften (low-pass)
+    place(s, boom * 0.7, at)
+    for c in range(25):                                              # crackle
+        cn = int(SR * 0.006)
+        place(s, rng.normal(0, 1, cn) * np.exp(-np.arange(cn) / (SR * 0.0015)) * 0.25,
+              at + 0.12 + rng.uniform(0, 0.5))
+save("snd_celebrate", s, peak=0.85)
+
 print("Sounds written to", os.path.abspath(OUT))

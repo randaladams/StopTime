@@ -8,29 +8,49 @@ SHORT DESCRIPTION (max 80 characters):
 Stop the clock at exactly 1.00 second. Sounds easy. It isn't. Can you do it?
 
 FULL DESCRIPTION (max 4000 characters):
-How good is your sense of time?
+How good is your sense of time? Find out in one second.
 
-Tap START, then tap STOP at exactly 1.00 second. That's it. One button, one second, and a lot harder than it sounds.
+StopTime is a simple, addictive timing game. Tap START, then tap STOP at exactly 1.00 second. One button. One second. It sounds easy, until you try it.
 
-⏱ SIMPLE TO PLAY, HARD TO MASTER
-The clock counts up in hundredths of a second. Stop it at exactly 1.00 for a perfect score. Miss by 0.01 and you'll know it.
+⏱ ONE GOAL: EXACTLY 1.00
+The clock counts up in hundredths of a second. Stop it at exactly 1.00 for a perfect score. Stop at 0.99 or 1.01 and you'll know just how close you came. After every try, StopTime tells you how early or late you were, so you can fine-tune your timing.
 
-🙈 HARD MODE
-Think you've got it? Switch to Hard mode and the clock disappears. No numbers, no help, just your inner clock. Your time is revealed only after you stop.
+🙈 EASY AND HARD MODE
+• Easy mode: watch the clock count up and stop it at the right moment.
+• Hard mode: the clock disappears while it runs. No numbers, no help, just your inner sense of time. Your result is revealed only after you stop.
+Switch between modes at any time. Each mode keeps its own stats.
 
-🏆 33 ACHIEVEMENTS
-Earn achievements for perfect stops, streaks, near misses, playing blind in Hard mode, and a few surprises along the way. Can you unlock Statistical Anomaly? What about Fluke?
+🏆 35 ACHIEVEMENTS TO UNLOCK
+Earn achievements as you play, with a gold pop-up and fanfare every time you unlock one:
+• Accuracy: get within 0.10, then 0.05, then a near miss at 0.99 or 1.01, and finally the perfect 1.00
+• Perfect stops: 3, 10 and 50 perfect stops
+• Streaks: perfect stops back to back
+• Hard mode: a full set of achievements earned with the clock hidden
+• Dedication: play 10, 100 and 1,000 times
+• Surprises: a few fun achievements for curious players. Can you earn Statistical Anomaly? What about Fluke?
+• The ultimate goals: complete every achievement in a section to become Master of Time or Blind Grandmaster, celebrated with a fireworks show
 
 📊 TRACK YOUR PROGRESS
-See your tries, perfect stops and best streak for both Easy and Hard mode.
+See your total tries, perfect stops and best perfect streak for Easy and Hard mode. The Achievements screen shows what you've unlocked and what's still waiting. Want a fresh start? Reset everything with one tap.
 
-✨ MORE
+🎯 FAIR, PRECISE TIMING
+The clock starts and stops the instant your finger touches the button, not when you lift it, so every hundredth of a second is really yours.
+
+🔊 SOUNDS AND STYLE
+• Satisfying sound effects: a different sound for start, stop, a perfect 1.00 and new achievements
+• Mute button to play silently
 • Light and Dark themes
-• Satisfying sound effects (with a mute button)
-• Fair, precise timing that starts the moment your finger touches the screen
-• Small and fast, no account needed
+• Clean, distraction-free design
 
-StopTime is free to play with ads. A one-time "Remove Ads" purchase removes all ads forever, and your achievements stay with you.
+✅ SIMPLE AND PRIVATE
+• No account or sign-up needed
+• Works offline
+• Small download, fast to start
+• Your stats and achievements stay on your phone
+
+StopTime is free to play and supported by ads. A one-time "Remove Ads" purchase removes all ads for good. It's restored automatically if you reinstall or switch to a new phone with the same Google account, and your achievements are never affected.
+
+Perfect for a quick break, a challenge with friends, or finding out once and for all if you have a built-in clock.
 
 One second. How hard can it be?
 
