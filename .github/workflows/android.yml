@@ -26,7 +26,7 @@ concurrency:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04   # pinned so a GitHub image change can't break builds by surprise
     steps:
       - name: Get the code
         uses: actions/checkout@v7
@@ -79,7 +79,7 @@ jobs:
         env:
           STOPTIME_VERSION_NAME: ${{ steps.version.outputs.name }}
           STOPTIME_VERSION_CODE: ${{ steps.version.outputs.code }}
-        run: ./gradlew assembleDebug --stacktrace
+        run: ./gradlew assembleDebug --console=plain 2>&1 | tee gradle.log; exit ${PIPESTATUS[0]}
 
       - name: Upload test APK
         if: steps.version.outputs.release == 'false'
@@ -107,10 +107,22 @@ jobs:
           STOPTIME_KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
           STOPTIME_KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
         run: |
-          ./gradlew bundleRelease assembleRelease --stacktrace
+          set -o pipefail
+          ./gradlew bundleRelease assembleRelease --console=plain 2>&1 | tee gradle.log
           mkdir -p out
           cp app/build/outputs/bundle/release/app-release.aab "out/StopTime-${STOPTIME_VERSION_NAME}.aab"
           cp app/build/outputs/apk/release/app-release.apk "out/StopTime-${STOPTIME_VERSION_NAME}.apk"
+
+      # If Gradle fails, copy its error message to the run's summary page (no log digging needed).
+      - name: Show the build error
+        if: failure()
+        run: |
+          [ -f gradle.log ] || exit 0
+          MSG=$( (grep -A 15 "What went wrong" gradle.log; grep -E "^e: " gradle.log) | head -n 40)
+          [ -n "$MSG" ] || MSG=$(tail -n 30 gradle.log)
+          { echo '### Build error'; echo '```'; echo "$MSG"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
+          ESC=$(printf '%s' "$MSG" | sed ':a;N;$!ba;s/%/%25/g;s/\r/%0D/g;s/\n/%0A/g')
+          echo "::error title=Gradle build failed::$ESC"
 
       - name: Remove the key file
         if: always() && steps.version.outputs.release == 'true'
