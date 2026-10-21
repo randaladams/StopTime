@@ -42,7 +42,7 @@ Everything runs in one GitHub workflow: `.github/workflows/android.yml` ("Androi
 Real AdMob IDs are at the top of `app/build.gradle.kts`; test builds always use Google's test ads.
 
 ## Store listing
-`store/` holds the Play icon, feature graphic and listing text; `docs/` is the public GitHub Pages site with the privacy policy.
+`store/` holds the Play icon, feature graphic and listing text; `docs/` only redirects to the official privacy policy at https://adamselite.com/apps/stop-time/privacy/.
 
 ## Testing "Remove Ads" on a sideloaded test build
 Long-press the version line at the bottom of the Achievements screen to pretend the purchase

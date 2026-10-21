@@ -57,7 +57,7 @@ One second. How hard can it be?
 CATEGORY:  Game -> Casual
 TAGS (pick up to 5 in Play Console): Casual, Reflex, Timing, Single player, Offline
 
-CONTACT EMAIL: randy@adamselite.com
-WEBSITE: https://YOUR-GITHUB-USERNAME.github.io/StopTime/
-PRIVACY POLICY URL: https://YOUR-GITHUB-USERNAME.github.io/StopTime/privacy-policy.html
+CONTACT EMAIL: support@adamselite.com
+WEBSITE: https://adamselite.com
+PRIVACY POLICY URL: https://adamselite.com/apps/stop-time/privacy/
   (replace YOUR-GITHUB-USERNAME; works once GitHub Pages is turned on for the repo, see the launch guide)
